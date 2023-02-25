@@ -9,10 +9,10 @@ deles seja "true", usando os Wrapper Objects como "conversores" nos valores
 das variáveis. Analise o que está sendo impresso no console para saber como
 resolver o problema corretamente.
 */
-var five = '5';
+var five = Number('5');
 console.log( five + ' é número?', typeof five === 'number' );
 
-var concat = 10 + 10;
+var concat = String(10) + String(10);
 console.log( '"' + concat + '" é uma string? E é igual a "1010"?', typeof concat === 'string' );
 
 /*
@@ -24,7 +24,13 @@ funcional, mas dessa vez, separando algumas responsabilidades.
 função receberá dois parâmetros e retornará a operação referente à sua
 propriedade, usando os valores passados por parâmetro.
 */
-// ?
+operation = {
+  "+": (a,b) => a + b, 
+  "-": (a,b) => a - b,
+  "*": (a,b) => a * b,
+  "/": (a,b) => a / b,
+  "%": (a,b) => a % b
+};
 
 /*
 Crie uma função chamada `isOperatorValid`, que receberá um operador por
@@ -36,7 +42,9 @@ parâmetro a ela é válido, ou seja, se ele é igual a '+', '-', '*', '/' ou
 Caso contrário, "false".
 - O desafio é fazer o retorno sem usar "if" ou "switch".
 */
-// ?
+const isOperatorValid = (operator) => {
+  return !!operation[operator];
+}
 
 /*
 Agora vamos criar a calculadora.
@@ -50,7 +58,18 @@ parâmetros;
 operador passado para a função "calculator", e passando para esse método
 os dois parâmetros da função de retorno de "calculator".
 */
-// ?
+const calculator = (operator) => {
+  if(!isOperatorValid(operator)){
+    return false;
+  }
+  return function(a,b){
+    if(typeof a != 'number' || typeof b != 'number' ){
+      return false
+    } 
+    const op = operation[operator];
+    return op(a,b)
+  }
+}
 
 /*
 Crie uma função chamada "showOperationMessage" que recebe três parâmetros:
@@ -59,7 +78,9 @@ deve ser a frase:
 'A operação [NUMBER1] [OPERATOR] [NUMBER2] =';
 Essa função mostrará a mensagem da operação que criaremos mais abaixo.
 */
-// ?
+const showOperationMessage = (operator, a, b) => {
+  return `A operacao ${[a]} ${operator} ${[b]} = `
+}
 
 /*
 Crie uma função chamada "showErrorMessage" que recebe um parâmetro: o
@@ -67,7 +88,9 @@ operador da operação cálculo, quando a operação não for válida.
 Essa função deverá retornar a frase:
 'Operação "[OPERATOR]" não permitida!'
 */
-// ?
+const showErrorMessage = (operator) => {
+  return `Operacao ${operator} nao permitida!`
+}
 
 /*
 Nossa calculadora está pronta! Agora vamos testá-la:
@@ -75,7 +98,7 @@ PASSO 1:
 - Declare 3 variáveis: "number1" e "number2", iniciando com valor zero, e
 "operationSignal", sem valor por enquanto.
 */
-// ?
+let number1 = number2 = 0;
 
 /*
 PASSO 2:
@@ -83,7 +106,8 @@ Atribua à variável operationSignal o operador de soma, e declare uma
 variável chamada "sum", que receba a função "calculator", passando por
 parâmetro a variável que recebeu o sinal da operação.
 */
-// ?
+let operationSignal = '+';
+const sum = calculator(operationSignal)
 
 /*
 PASSO 3:
@@ -97,14 +121,63 @@ parâmetros para o método "log" de "console":
 - O segundo, a função de soma, passando os dois operandos.
 - Se "sum" for "false", mostrar no console a mensagem de erro.
 */
-// ?
+if(sum) {
+  console.log(showOperationMessage(operationSignal, number1 = 2, number2 = 3), sum(number1, number2));
+} else {
+  console.log(showErrorMessage(operationSignal));
+}
 
 /*
 Repita desde o "PASSO 2" com as operações de subtração, multiplicação,
 divisão e resto. Crie variáveis com os nomes "subtraction",
 "multiplication", "division" e "mod".
 */
-// ?
+
+operationSignal = '-';
+const sub = calculator(operationSignal)
+
+if(sub) {
+  console.log(showOperationMessage(operationSignal, number1 = 4, number2 = 3), sub(number1, number2));
+} else {
+  console.log(showErrorMessage(operationSignal));
+}
+
+operationSignal = '*';
+const mut = calculator(operationSignal)
+
+if(mut) {
+  console.log(showOperationMessage(operationSignal, number1 = 4, number2 = 3), mut(number1, number2));
+} else {
+  console.log(showErrorMessage(operationSignal));
+}
+
+operationSignal = '/';
+const div = calculator(operationSignal)
+
+if(div) {
+  console.log(showOperationMessage(operationSignal, number1 = 4, number2 = 3), div(number1, number2));
+} else {
+  console.log(showErrorMessage(operationSignal));
+}
+
+operationSignal = '.';
+const inv = calculator(operationSignal)
+
+if(inv) {
+  console.log(showOperationMessage(operationSignal, number1 = 4, number2 = 3), inv(number1, number2));
+} else {
+  console.log(showErrorMessage(operationSignal));
+}
+
+operationSignal = '%';
+const rest = calculator(operationSignal)
+
+if(rest) {
+  console.log(showOperationMessage(operationSignal, number1 = 4, number2 = 3), rest(number1, number2));
+} else {
+  console.log(showErrorMessage(operationSignal));
+}
+
 
 /*
 Repita o PASSO 2 novamente, mas passando um operador inválido, para ver se
