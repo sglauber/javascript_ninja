@@ -88,14 +88,19 @@ Converta os livros novamente para objeto.
 */
 books = JSON.parse(books);
 console.log( '\nAgora os livros são objetos novamente:' );
+console.log(books);
 
 /*
 Mostre no console todas as propriedades e valores de todos os livros,
 no formato abaixo:
     "[PROPRIEDADE]: [VALOR]"
 */
-console.log(Object.entries(books));
-
+console.log("prop:val");
+for(let i = 0; i < books.length; i++){
+  for(key in books[i]){
+    console.log(`${key}:${books[i][key]}`)
+  }
+}
 /*
 Crie um array chamado `myName`. Cada item desse array deve ser uma letra do
 seu nome. Adicione seu nome completo no array.
