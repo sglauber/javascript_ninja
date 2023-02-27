@@ -1,4 +1,4 @@
-/*
+(function(){/*
 Envolva todo o código desse desafio em uma IIFE.
 */
 
@@ -10,22 +10,29 @@ Os números devem ser de 1 a 10.
 Mostre esse array no console.
 */
 console.log( 'Number Objects Array:' );
-// ?
+let arr = new Array(10);
 
+for(let i = 0; i < arr.length; i++) {
+  arr[i] = { number: i + 1 };
+}
+
+console.log(arr);
 /*
 Crie um array chamado `justNumbers`, que terá como elementos somente os
 números do array criado acima. Mostre esse novo array no console.
 */
 console.log( '\nJust Numbers:' );
-// ?
+let justNumbers = arr.map(el => el.number);
 
+console.log(justNumbers);
 /*
 Crie um novo array chamado `justMod2Or3`, que receberá do array criado acima
 somente os números que forem divisíveis por 2 ou 3. Mostre esse novo array
 no console.
 */
 console.log( '\nJust module of division by 2 or 3:' );
-// ?
+let justMod2Or3 = justNumbers.filter(el => el % 2 == 0 || el % 3 == 0)
+console.log(justMod2Or3)
 
 /*
 Declare uma variável chamada operation que receba, do array criado acima,
@@ -36,7 +43,9 @@ O cálculo deve começar com zero.
 Mostre o resultado no console.
 */
 console.log( '\nOperation:' );
-// ?
+let operation = justMod2Or3.reduce((acc, act) => {
+  let somaMult = acc + act;
+}, 0);
 
 /*
 Faça o mesmo cálculo passado acima, mas começando do último item para o
@@ -44,7 +53,9 @@ primeiro. O nome da variável deve ser operation2. Mostre o resultado no
 console.
 */
 console.log( '\nOperation 2:' );
-// ?
+let operation2 = justMod2Or3.reduce((acc, act) => {
+  let somaMult = acc + act;
+}, 0);
 
 /*
 Crie um array chamado `name`. Cada elemento desse array deve ser uma sílaba
@@ -55,7 +66,10 @@ infantil, onde você coloca a letra "P" antes de cada sílaba de uma palavra
 falada, como se você estivesse falando em código xD
 */
 console.log( '\nSeu nome na língua do "P":' );
-// ?
+let nome = ['Gl','au','ber'];
+nome.reduce((acc, act) => {
+  acc + act
+}, '')
 
 /*
 Crie uma variável chamada `inversedName`, que reduzirá o array em uma string
@@ -95,3 +109,4 @@ formato de String.
 */
 console.log( '\njustMod2Or3 é um array? Se for, a representação dele em String é:' );
 // ?
+})();
